@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,13 @@ public class DuckController {
     @GetMapping
     public List<DuckData> findAll() {
         try {
-            return ducksRepository.findAll();
+            List<DuckData> dlist = ducksRepository.findAll();
+
+            Object[] dlista = dlist.toArray();
+
+            Arrays.sort(dlista);
+            return dlista;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
